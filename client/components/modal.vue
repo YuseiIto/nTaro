@@ -10,7 +10,7 @@
         <slot></slot>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success" v-on:click="save">Save changes</button>
+      <button class="button is-success" v-on:click="onSave">Save changes</button>
       <button class="button" v-on:click="close">Cancel</button>
     </footer>
   </div>
@@ -27,7 +27,8 @@ export default{
         title:String
     },
     methods:{
-    save:function(){
+    onSave:function(){
+      this.$emit('save');
       this.$emit('input',this.value);
     },
     close:function(){

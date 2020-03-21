@@ -1,5 +1,5 @@
 <template>
-<modal v-bind:value="value" @input="updateValue()" title="New Notification">
+<modal v-bind:value="value" @input="updateValue()" title="New Notification" v-on:save="saveData">
       <input type="text" class="input" placeholder="event title">
        <VueCtkDateTimePicker v-model="datetime_model" />
        <textarea class="textarea is-primary" placeholder="Note"></textarea>
@@ -10,6 +10,8 @@
 import modal from "./modal.vue"
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+import {ntaroAdd}from "../modules/nTaroAPI"
+
 export default{
     name:"createNew",
     props: {
@@ -34,6 +36,9 @@ export default{
     methods:{
         updateValue:function(e){
             this.$emit('input',e)
+        },
+        saveData:function(){
+            ntaroAdd();
         }
     }
 }
