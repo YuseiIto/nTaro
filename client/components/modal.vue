@@ -11,7 +11,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" v-on:click="save">Save changes</button>
-      <button class="button">Cancel</button>
+      <button class="button" v-on:click="close">Cancel</button>
     </footer>
   </div>
 </div>
