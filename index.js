@@ -1,7 +1,9 @@
-var http = require('http');
-http.createServer(function(request, response) {
-    response.writeHead(200, { 'Content-Type': 'text/plain' });
-    response.end('Hello World\n');
-}).listen(process.env.PORT);
+const app = require('express')();
+const path = require('path');
+const PORT = process.env.PORT || 3000;
 
-console.log('Server running at http://127.0.0.1:3000');
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.listen(PORT, () => console.log(`> Ready on http://localhost:${PORT}`));

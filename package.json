@@ -8,5 +8,8 @@
     "license": "GPLV3",
     "scripts": {
         "start": "node index.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1"
     }
 }
