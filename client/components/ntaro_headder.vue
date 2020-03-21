@@ -8,14 +8,16 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Modal title</p>
+      <p class="modal-card-title">New Notification</p>
       <button class="delete" aria-label="close" v-on:click="flip"></button>
     </header>
     <section class="modal-card-body">
-      <!-- Content ... -->
+      <input type="text" class="input" placeholder="event title">
+       <DatePicker style="padding:10px;" class="title is-6"></DatePicker>
+       <div style="height:70vh;"></div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Save changes</button>
+      <button class="button is-success" v-on:click="save">Save changes</button>
       <button class="button">Cancel</button>
     </footer>
   </div>
@@ -23,13 +25,22 @@
 </div>
 </template>
 <script>
+
+import DatePicker from 'vuejs-datepicker/src/components/Datepicker.vue';
+
 export default{
     name:"ntaro_headder",
+    components:{
+      DatePicker
+    },
     data:()=>{
         return {isActive:false}
     },
     methods:{
     flip:function(event){
+      this.isActive=!this.isActive;
+    },
+    save:function(event){
       this.isActive=!this.isActive;
     }}
 }
