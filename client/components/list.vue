@@ -27,9 +27,9 @@ export default{
         }
     },
     methods:{
-      delFnc:function(id){
+      delFnc:async function(id){
         ntaroRemove(id);
-        this.records=ntaroGet();
+        this.records=await ntaroGet();
       }
     }
 }
