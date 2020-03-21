@@ -1,5 +1,5 @@
 module.exports = {
-    srcDir: "client",
+    srcDir: "./client/",
     head: {
         titleTemplate: "%s - n太郎.js"
     }
