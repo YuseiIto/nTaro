@@ -2,7 +2,6 @@
 <div>
   <ntaro_headder/>
   <list/>
-
 </div>
 </template>
 <script>
