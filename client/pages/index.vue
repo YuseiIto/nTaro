@@ -1,14 +1,16 @@
 <template>
 <div>
-<h1>title</h1>
-<head_logo/>
+  <ntaro_headder/>
+
+
 </div>
 </template>
 <script>
-import head_logo from "../components/head_logo.vue"
+import ntaro_headder from "../components/ntaro_headder.vue"
+import 'bulma/css/bulma.css'; 
 export default {
   components:{
-      head_logo
+      ntaro_headder
   },
   head() {
     return {
