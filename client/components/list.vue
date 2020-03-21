@@ -21,9 +21,6 @@ export default{
         return {
           
         }
-    },
-    props: {
-      count: Number
     }
 }
 </script>
