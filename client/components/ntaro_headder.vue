@@ -13,8 +13,11 @@
     </header>
     <section class="modal-card-body">
       <input type="text" class="input" placeholder="event title">
-       <DatePicker style="padding:10px;" class="title is-6"></DatePicker>
-       <div style="height:70vh;"></div>
+       <VueCtkDateTimePicker v-model="datetime_model" />
+       <textarea class="textarea is-primary" placeholder="Note"></textarea>
+
+       <div v-bind:style="{height:(isMobile?'20vh':'100vh')}"></div>
+
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" v-on:click="save">Save changes</button>
@@ -26,21 +29,29 @@
 </template>
 <script>
 
-import DatePicker from 'vuejs-datepicker/src/components/Datepicker.vue';
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
 export default{
     name:"ntaro_headder",
     components:{
-      DatePicker
+      VueCtkDateTimePicker
     },
     data:()=>{
-        return {isActive:false}
+        return {isActive:false,datetime_model:null,isMobile:false}
+    },
+    updated:function(){
+        const ua = navigator.userAgent;
+         if (window.matchMedia('(max-width: 1200px)').matches) {
+           this.isMobile=true;
+        }
     },
     methods:{
     flip:function(event){
       this.isActive=!this.isActive;
     },
     save:function(event){
+      alert(this.datetime_model);
       this.isActive=!this.isActive;
     }}
 }
