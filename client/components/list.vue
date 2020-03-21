@@ -2,7 +2,7 @@
 <div class="tile is-vertical is-12">
     <div class="tile">
       <div class="tile is-parent is-vertical">
-        <card v-for="item in records" :key="item.id" :title="item.name"  :datetime="item.datetime" :content="item.content" :id=item.id color="index%" />
+        <card v-for="item in records" :key="item.id" :title="item.name"  :datetime="item.datetime" :content="item.content" :id=item.id></card>
       </div>
     </div>
 </div>
