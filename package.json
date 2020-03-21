@@ -1,0 +1,9 @@
+{
+  "name": "nTaro",
+  "version": "1.0.0",
+  "description": "n組太郎",
+  "main": "index.js",
+  "repository": "git@github.com:YuseiIto/nTaro.git",
+  "author": "Yusei Ito <yuseikun@Outlook.jp>",
+  "license": "GPLV3"
+}
