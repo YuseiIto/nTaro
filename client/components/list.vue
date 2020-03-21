@@ -9,7 +9,7 @@
 </template>
 <script>
 import card from "./card"
-import {remove} from "../modules/nTaroAPI.js"
+import {ntaroRemove,ntaroGet} from "../modules/nTaroAPI.js"
 
 export default{
     name:"list",
@@ -23,20 +23,13 @@ export default{
                             "datetime": "2020/01/01 08:00",
                             "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                             "id": 0
-                        },
-                        {
-                            "name": "Quo usque tandem",
-                            "datetime": "2020/01/08 08:00",
-                            "content": "Quo usque tandem abutere, Catilina, patientia nostra? Quam diu etiam furor iste tuus nos eludet?",
-                            "id": 1
-                        }
-                ]
+                        }]
         }
     },
     methods:{
       delFnc:function(id){
-        console.log("click")
-        remove(id);
+        ntaroRemove(id);
+        this.records=ntaroGet();
       }
     }
 }
