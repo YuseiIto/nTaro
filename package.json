@@ -12,6 +12,7 @@
         "start": "NODE_ENV=production node ./build/main.js"
     },
     "dependencies": {
+        "axios": "^0.19.2",
         "backpack-core": "^0.8.4",
         "bulma": "^0.8.0",
         "express": "^4.17.1",
