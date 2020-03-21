@@ -2,13 +2,15 @@
 <div class="tile is-vertical is-12">
     <div class="tile">
       <div class="tile is-parent is-vertical">
-        <card v-for="item in records" :key="item.id" :title="item.name"  :datetime="item.datetime" :content="item.content" :id=item.id></card>
+        <card v-for="item in records" :key="item.id" :title="item.name"  :datetime="item.datetime" :content="item.content" :id=item.id v-on:click="delFnc(item.id)"></card>
       </div>
     </div>
 </div>
 </template>
 <script>
 import card from "./card"
+import {remove} from "../modules/nTaroAPI.js"
+
 export default{
     name:"list",
     components:{
@@ -30,6 +32,12 @@ export default{
                         }
                 ]
         }
+    },
+    methods:{
+      delFnc:function(id){
+        console.log("click")
+        remove(id);
+      }
     }
 }
 </script>
