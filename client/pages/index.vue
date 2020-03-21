@@ -1,7 +1,7 @@
 <template>
 <div>
   <ntaro_headder/>
-  <list count="3"/>
+  <list/>
 
 </div>
 </template>
