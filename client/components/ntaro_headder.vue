@@ -8,7 +8,6 @@
 export default{
     name:"ntaro_headder",
     data:()=>{
-        return {greeting:"Hello"}
     }
 }
 </script>
