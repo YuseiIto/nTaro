@@ -7,7 +7,8 @@
     "author": "Yusei Ito <yuseikun@Outlook.jp>",
     "license": "GPL-3.0-or-later",
     "scripts": {
-        "start": "node index.js"
+        "build": "backpack build",
+        "start": "node ./build/main"
     },
     "dependencies": {
         "express": "^4.17.1",
