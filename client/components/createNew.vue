@@ -1,5 +1,5 @@
 <template>
-<modal v-bind:value="value" @input="updateValue()">
+<modal v-bind:value="value" @input="updateValue()" title="New Notification">
       <input type="text" class="input" placeholder="event title">
        <VueCtkDateTimePicker v-model="datetime_model" />
        <textarea class="textarea is-primary" placeholder="Note"></textarea>
