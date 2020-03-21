@@ -2,21 +2,18 @@
 <div class="tile is-vertical is-12">
     <div class="tile">
       <div class="tile is-parent is-vertical">
-        <article class="tile is-child notification is-primary">
-          <p class="title">Vertical...</p>
-          <p class="subtitle">Top tile</p>
-        </article>
-        <article class="tile is-child notification is-warning">
-          <p class="title">...tiles</p>
-          <p class="subtitle">Bottom tile</p>
-        </article>
+        <card title="lorem Ipsum"  datetime="2020/01/08 08:00" content="Quo usque tandem abutere, Catilina, patientia nostra? Quam diu etiam furor iste tuus nos eludet?"/>
       </div>
     </div>
 </div>
 </template>
 <script>
+import card from "./card"
 export default{
     name:"list",
+    components:{
+      card
+    },
     data:()=>{
         return {
           
