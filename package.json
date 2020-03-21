@@ -8,8 +8,8 @@
     "license": "GPL-3.0-or-later",
     "scripts": {
         "dev": "backpack dev&&cross-env NODE_ENV=development ./build/main.js",
-        "build": "backpack build",
-        "start": "backpack dev&&cross-env NODE_ENV=production ./build/main.js"
+        "build": "backpack build&&nuxt build",
+        "start": "NODE_ENV=production node ./build/main.js"
     },
     "dependencies": {
         "cross-env": "^7.0.2",
