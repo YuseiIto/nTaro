@@ -1,6 +1,8 @@
 import express from "express"
 import { Nuxt, Builder } from "nuxt"
 import config from "../nuxt.config.js"
+import bodyParser from "body-parser"
+import api from "./api"
 
 const app = express()
 
@@ -12,6 +14,12 @@ if (config.dev) {
     builder.build()
 }
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+
+app.use(api)
 app.use(nuxt.render)
 
 export default app
