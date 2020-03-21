@@ -9,14 +9,12 @@
     "scripts": {
         "dev": "backpack dev&&cross-env NODE_ENV=development ./build/main.js",
         "build": "backpack build",
-        "start": "backpack dev&&cross-env NODE_ENV=production ./build/main.js"
+        "start": "backpack build&&cross-env NODE_ENV=production ./build/main.js"
     },
     "dependencies": {
         "cross-env": "^7.0.2",
         "express": "^4.17.1",
-        "nuxt": "^2.12.0"
-    },
-    "devDependencies": {
+        "nuxt": "^2.12.0",
         "backpack-core": "^0.8.4"
     }
 }
