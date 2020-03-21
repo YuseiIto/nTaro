@@ -1,8 +1,8 @@
 <template>
-        <article class="tile is-child notification is-primary">
-          <p class="title">{{title}}</p>
-          <p class="subtitle">{{content}}</p>
-          <p class="is-small date">Scheduled:{{datetime}}</p>
+        <article class="tile is-child box">
+          <p class="title"> #{{id}}　{{title}}</p>
+          <p class="content">{{content}}</p>
+          <p class="subtitle right">Scheduled:{{datetime}}</p>
         </article>
 </template>
 <script>
@@ -15,11 +15,12 @@ data: () => {
 props: {
     title:String,
     datetime:String,
-    content:String
+    content:String,
+    id:Number
 }
 } </script>
 <style>
-.date{
+.right{
     text-align:right;
 }
 </style>
