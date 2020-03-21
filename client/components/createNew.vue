@@ -1,8 +1,8 @@
 <template>
 <modal v-bind:value="value" @input="updateValue()" title="New Notification" v-on:save="saveData">
-      <input type="text" class="input" placeholder="event title">
-       <VueCtkDateTimePicker v-model="datetime_model" />
-       <textarea class="textarea is-primary" placeholder="Note"></textarea>
+      <input type="text" v-model="name" class="input" placeholder="event title">
+       <VueCtkDateTimePicker v-model="datetime" />
+       <textarea class="textarea is-primary" placeholder="Note" v-model="content"></textarea>
        <div v-bind:style="{height:(isMobile?'20vh':'100vh')}"></div>
 </modal>
 </template>
@@ -20,7 +20,9 @@ export default{
     data: function(){
         return {
             isMobile:false,
-            datetime_model:null
+            name:"",
+            datetime:null,
+            content:""
         }
     },
     components:{
@@ -38,7 +40,7 @@ export default{
             this.$emit('input',e)
         },
         saveData:function(){
-            ntaroAdd();
+            ntaroAdd(this.name,this.datetime,this.content);
         }
     }
 }
