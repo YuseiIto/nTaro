@@ -1,6 +1,6 @@
 import express from "express"
 import { Nuxt, Builder } from "nuxt"
-import config from "./../client/nuxt.config.js"
+import config from "../nuxt.config.js"
 
 const app = express()
 
