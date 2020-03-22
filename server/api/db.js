@@ -1,5 +1,6 @@
 import mongodb from 'mongodb'
 const MongoClient = mongodb.MongoClient
+const ObjectId = mongodb.ObjectId
 const task_col_name = "tasks"
 const db_name = "test"
 
@@ -51,6 +52,19 @@ export async function getRecords() {
                 resolve(arr);
                 return arr;
             });
+        })
+    })
+}
+
+export function deleteRecord(id) {
+    return new Promise(resolve => {
+        MongoClient.connect(uri, (err, db) => {
+            db.db("test").collection("tasks").deleteOne({ _id: ObjectId(id) }, function(err, obj) {
+                console.log("deleted:" + id)
+                resolve();
+                return;
+            })
+
         })
     })
 }
