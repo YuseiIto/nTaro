@@ -13,5 +13,7 @@ export async function ntaroGet() {
 };
 
 export function ntaroAdd(name, datetime, content) {
-    axios.post("/add", { name: name, datetime: datetime, content: content })
+    return new Promise(resolve => {
+        axios.post("/add", { name: name, datetime: datetime, content: content }).then(() => { resolve(); return; })
+    });
 }
