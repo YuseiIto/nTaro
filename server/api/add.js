@@ -1,12 +1,13 @@
 import { Router } from "express"
-import db from "./db"
+import { addRecord } from "./db"
 
 const router = Router()
 
 /* GET users listing. */
 router.post("/", (req, res) => {
-    console.log(`New request. Name:${req.body.name},DateTime:${req.body.datetime},content:${req.body.content}`)
-    res.send("respond wiiiiith a resource")
+    addRecord(req.body).then(() => {
+        res.send({ result: "OK" })
+    })
 })
 
 export default router
