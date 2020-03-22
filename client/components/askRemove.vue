@@ -1,5 +1,5 @@
 <template>
-<modal v-bind:value="value" @input="$emit('input',false)" footer="remove" title="警告" v-on:save="$emit('remove')">
+<modal v-bind:value="value" @input="$emit('input',false)" footer="remove" title="警告" v-on:save="$emit('remove',id)">
 <h1>{{(message!="")&&(message!=null)&&(message!=undefined)?`「${message}」`:'この通知'}}を消去してよろしいですか?</h1>
 </modal>
 </template>
@@ -12,7 +12,8 @@ modal
 },
 props: {
     value:Boolean,
-    message:String
+    message:String,
+    id:Number
 }
 } 
 </script>

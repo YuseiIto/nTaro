@@ -2,10 +2,10 @@
 <div class="tile is-vertical is-12">
     <div class="tile">
       <div class="tile is-parent is-vertical">
-        <card v-for="(item,index) in records" :key="item.id" :title="item.name"  :datetime="item.datetime" :content="item.content" :id="index+1" v-on:click="promptRemove" v-on:remove="delFnc(item.id)" ></card>
+        <card v-for="(item,index) in records" :key="item.id" :title="item.name"  :datetime="item.datetime" :content="item.content" :id="index+1" v-on:click="promptRemove"></card>
       </div>
     </div>
-    <askRemove v-model="modal" :message="delMsg" />
+    <askRemove v-model="modal" :message="delMsg" :id="target_id" v-on:remove="delFnc"/>
     </div>
 </template>
 <script>
@@ -23,19 +23,21 @@ export default{
         return {
                 records:[],
                 modal:false,
-                delMsg:""
+                delMsg:"",
+                target_id:0
         }
     },
     created:async function(){
         this.records=await ntaroGet();
     },
     methods:{
-      promptRemove:function(name){
+      promptRemove:function(e){
         this.modal=true;
-        this.delMsg=name
+        this.delMsg=e.name;
+        this.target_id=e.id;
       },
       delFnc:async function(id){
-        ntaroRemove(this.records[id-1]);
+        ntaroRemove(this.records[id-1]._id);
         this.records=await ntaroGet();
       },
       reload:async function(){
