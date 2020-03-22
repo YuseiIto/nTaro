@@ -43,6 +43,14 @@ export function addRecord(obj) {
     });
 }
 
-export function getRecords() {
-
+export async function getRecords() {
+    return new Promise(resolve => {
+        MongoClient.connect(uri, (err, db) => {
+            db.db("test").collection("tasks").find({}).toArray((err, arr) => {
+                if (err) throw err;
+                resolve(arr);
+                return arr;
+            });
+        })
+    })
 }
