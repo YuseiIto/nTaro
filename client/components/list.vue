@@ -37,6 +37,9 @@ export default{
       delFnc:async function(id){
         ntaroRemove(this.records[id-1]);
         this.records=await ntaroGet();
+      },
+      reload:async function(){
+        this.records=await ntaroGet();
       }
     }
 }
