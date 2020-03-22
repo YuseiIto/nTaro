@@ -1,5 +1,5 @@
 <template>
-        <article class="tile is-child box card" v-on:click="$emit('click')">
+        <article class="tile is-child box card" v-on:click="$emit('click',`#${id}　${title}`)">
           <p class="title"> #{{id}}　{{title}}</p>
           <p class="content">{{content}}</p>
           <p class="subtitle right">Scheduled:{{datetime}}</p>
