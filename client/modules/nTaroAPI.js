@@ -1,10 +1,9 @@
 import axios from "axios";
 
-export function ntaroRemove(id, callback) {
-    axios.post("/remove", { id: id })
-    if (typeof(callback) == "function") {
-        callback();
-    }
+export function ntaroRemove(id) {
+    return new Promise(resolve => {
+        axios.post("/remove", { id: id }).then(() => { resolve(); return; })
+    });
 };
 
 export async function ntaroGet() {
