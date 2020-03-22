@@ -9,6 +9,9 @@ const debug = require("debug")("trarepo-database:server")
 /**
  * Get port from environment and store in Express.
  */
+if (process.env.NODE_ENV != "production") {
+    require('dotenv').config()
+}
 
 const port = normalizePort(process.env.PORT || "3000")
 app.set("port", port)
