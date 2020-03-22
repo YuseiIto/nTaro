@@ -6,9 +6,13 @@ export function ntaroRemove(id) {
     });
 };
 
-export async function ntaroGet() {
-    const res = await axios.get("/get")
-    return res.data;
+export function ntaroGet() {
+    return new Promise(resolve => {
+        axios.get("/get").then((res, err) => {
+            resolve(res.data);
+            return res.data;
+        });
+    });
 };
 
 export function ntaroAdd(name, datetime, content) {
