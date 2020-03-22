@@ -42,3 +42,7 @@ export function addRecord(obj) {
         })
     });
 }
+
+export function getRecords() {
+
+}
