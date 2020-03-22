@@ -1,7 +1,7 @@
 <template>
 <div>
-  <ntaro_headder/>
-  <list/>
+  <ntaro_headder v-on:change="reloadList"/>
+  <list ref="list"/>
 </div>
 </template>
 <script>
@@ -17,6 +17,12 @@ export default {
   head() {
     return {
       title: 'index'
+    }
+  },
+  methods:{
+    reloadList:function(){
+      this.$refs.list.reload();
+      console.log("Reload!")
     }
   }
 }
