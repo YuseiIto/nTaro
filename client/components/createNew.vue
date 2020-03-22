@@ -40,7 +40,7 @@ export default{
             this.$emit('input',e)
         },
         saveData:function(){
-            ntaroAdd(this.name,this.datetime,this.content);
+            ntaroAdd(this.name,this.datetime,this.content).then(()=>{this.$emit('change')})
         }
     }
 }
