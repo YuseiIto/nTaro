@@ -9,7 +9,12 @@
     <section class="modal-card-body">
         <slot></slot>
     </section>
-    <footer class="modal-card-foot">
+
+    <footer v-if="(footer==='remove')" class="modal-card-foot">
+      <button class="button is-danger" v-on:click="onSave">削除</button>
+      <button class="button" v-on:click="close">Cancel</button>
+    </footer>
+    <footer v-else class="modal-card-foot">
       <button class="button is-success" v-on:click="onSave">Save changes</button>
       <button class="button" v-on:click="close">Cancel</button>
     </footer>
@@ -24,12 +29,13 @@ export default{
     name:"modal",
     props:{
         value:Boolean,
-        title:String
+        title:String,
+        footer:String
     },
     methods:{
     onSave:function(){
       this.$emit('save');
-      this.$emit('input',this.value);
+      this.$emit('input',false);
     },
     close:function(){
         this.$emit('input',false);
