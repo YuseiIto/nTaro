@@ -12,6 +12,7 @@
         "start": "NODE_ENV=production node ./build/main.js"
     },
     "dependencies": {
+        "@line/bot-sdk": "^6.8.4",
         "axios": "^0.19.2",
         "backpack-core": "^0.8.4",
         "body-parser": "^1.19.0",
