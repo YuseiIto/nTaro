@@ -172,3 +172,15 @@ export function removeId(uid) {
         })
     })
 }
+
+export async function getIDs() {
+    return new Promise(resolve => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
+            db.db("test").collection(ids_col_name).find({}).toArray((err, arr) => {
+                if (err) throw err;
+                resolve(arr);
+                return arr;
+            });
+        })
+    })
+}
