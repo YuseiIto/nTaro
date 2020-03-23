@@ -25,6 +25,16 @@ app.use(bodyParser.json());
 app.use(api)
 app.use(nuxt.render)
 
-cron.schedule('0 0 6,7,8,12,16,17,18,19,20,21,22,23 * * *', () => { cronjob() });
-//cron.schedule('*/10 * * * * *', () => { cronjob() });
+if (process.env.NODE_ENV != "production") {
+    require('dotenv').config()
+}
+
+if (process.env.NODE_ENV == "production" || (process.env.NODE_ENV != "production" && process.env.DEBUG_CYCLE == "production")) {
+    console.log("Setup cron on production mode");
+    cron.schedule('0 0 6,7,8,12,16,17,18,19,20,21,22,23 * * *', () => { cronjob() });
+} else {
+    console.log(`Setup cron with debug mode.`);
+    cron.schedule("*/30 * * * * *", () => { cronjob() });
+}
+
 export default app
