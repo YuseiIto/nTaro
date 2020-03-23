@@ -1,5 +1,5 @@
 'use strict';
-import { registerId } from "./db";
+import { registerId, removeId } from "./db";
 const line = require("@line/bot-sdk");
 const BOT_JOIN_MESSAGE = "join!";
 
@@ -35,6 +35,8 @@ async function bot_body(ev) {
             })
         });
 
+    } else if (ev.type === "leave" || ev.type === "unfollow") {
+        return removeId(ev.source.userId);
     } else {
         return null;
     }
