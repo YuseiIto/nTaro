@@ -1,4 +1,5 @@
 'use strict';
+import { registerId } from "./db";
 const line = require("@line/bot-sdk");
 const BOT_JOIN_MESSAGE = "join!";
 
@@ -23,6 +24,7 @@ async function bot_body(ev) {
         })
     } else if (ev.type === "join" || "follow") {
 
+        registerId(ev.source.userId)
         return client.replyMessage(ev.replyToken, {
             type: "text",
             text: BOT_JOIN_MESSAGE
