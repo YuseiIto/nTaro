@@ -98,3 +98,16 @@ export function deleteRecord(id) {
         })
     })
 }
+
+export function addUid(uid) {
+    return new Promise(resolve => {
+        MongoClient.connect(uri, (err, db) => {
+            const dbo = db.db(db_name);
+            const tasks = dbo.collection(task_col_name);
+            tasks.insertOne({ "id": uid })
+            db.close();
+            resolve();
+            return;
+        })
+    });
+}
