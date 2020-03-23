@@ -74,10 +74,10 @@ export function addRecord(obj) {
         MongoClient.connect(uri, mongo_option, (err, db) => {
             const dbo = db.db(db_name);
             const tasks = dbo.collection(task_col_name);
-            tasks.insertOne(obj)
-            db.close();
-            resolve();
-            return;
+            tasks.insertOne(obj).then(() => {
+                db.close();
+                resolve();
+            })
         })
     });
 }
