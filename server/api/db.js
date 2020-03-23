@@ -3,6 +3,7 @@ import mongodb from 'mongodb'
 const MongoClient = mongodb.MongoClient
 const ObjectId = mongodb.ObjectId
 const task_col_name = "tasks"
+const ids_col_name = "ids"
 const db_name = "test"
 
 if (process.env.NODE_ENV != "production") {
@@ -16,20 +17,48 @@ const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB
  */
 MongoClient.connect(uri, (err, db) => {
 
-    const dbo = db.db(db_name);
-    dbo.listCollections().toArray().then((arr) => {
-        if (arr.findIndex(({ name }) => name === task_col_name) > -1) {
-            console.log(`Collection "${task_col_name}" exists!`);
-            db.close()
-        } else {
-            console.log(`Collection "${task_col_name}" doesn't exists!`);
-            dbo.createCollection(task_col_name).then(() => {
-                console.log("Collection created");
-                db.close()
-            })
-        }
+    const promises = [
+        new Promise(resolve => {
+            const dbo = db.db(db_name);
+            dbo.listCollections().toArray().then((arr) => {
+                if (arr.findIndex(({ name }) => name === task_col_name) > -1) {
+                    console.log(`Collection "${task_col_name}" exists!`)
+                    resolve();
+                } else {
+                    console.log(`Collection "${task_col_name}" doesn't exists!`)
+                    dbo.createCollection(task_col_name).then(() => {
+                        console.log("Collection created")
+                        resolve();
+                    })
+                }
+            });
+        }),
 
+        new Promise(resolve => {
+            const dbo = db.db(db_name);
+            dbo.listCollections().toArray().then((arr) => {
+                if (arr.findIndex(({ name }) => name === ids_col_name) > -1) {
+                    console.log(`Collection "${ids_col_name}" exists!`)
+                    resolve();
+                } else {
+                    console.log(`Collection "${ids_col_name}" doesn't exists!`)
+                    dbo.createCollection(ids_col_name).then(() => {
+                        console.log("Collection created")
+                        resolve();
+                    })
+                }
+
+            });
+        })
+    ];
+
+    Promise.all(promises).then(() => {
+        db.close()
+    }).catch(function(reason) {
+        console.log(reason)
     });
+
+
 });
 
 export function addRecord(obj) {
