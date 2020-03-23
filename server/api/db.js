@@ -111,3 +111,16 @@ export function addUid(uid) {
         })
     });
 }
+
+export function isRegisterd(uid) {
+    return new Promise(resolve => {
+        MongoClient.connect(uri, (err, db) => {
+            db.db("test").collection("tasks").find({ "id": uid }).toArray((err, arr) => {
+                if (err) throw err;
+                const res = (arr.length > 0) ? true : false
+                resolve(res);
+                return arr;
+            });
+        })
+    })
+}
