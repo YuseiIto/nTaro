@@ -22,13 +22,19 @@ async function bot_body(ev) {
             type: "text",
             text: `"${ev.message.text}"`
         })
-    } else if (ev.type === "join" || "follow") {
+    } else if (ev.type === "join" || ev.type === "follow") {
 
-        registerId(ev.source.userId)
-        return client.replyMessage(ev.replyToken, {
-            type: "text",
-            text: BOT_JOIN_MESSAGE
-        })
+        new Promise(resolve => {
+            registerId(ev.source.userId).then(() => {
+                client.replyMessage(ev.replyToken, {
+                    type: "text",
+                    text: BOT_JOIN_MESSAGE
+                }).then(() => {
+                    resolve();
+                })
+            })
+        });
+
     } else {
         return null;
     }
