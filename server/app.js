@@ -1,3 +1,4 @@
+'use strict';
 import express from "express"
 import { Nuxt, Builder } from "nuxt"
 import config from "../nuxt.config.js"

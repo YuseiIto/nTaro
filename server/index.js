@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-
+'use strict';
 import app from "./app"
 import http from "http"
 const debug = require("debug")("trarepo-database:server")

@@ -1,3 +1,4 @@
+'use strict';
 import { Router } from "express"
 import { deleteRecord } from "./db"
 const router = Router()

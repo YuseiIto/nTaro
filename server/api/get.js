@@ -1,3 +1,4 @@
+'use strict';
 import { Router } from "express"
 import { getRecords } from "./db"
 const router = Router()
