@@ -1,6 +1,6 @@
 'use strict';
 import mongodb from 'mongodb'
-const MongoClient = mongodb.MongoClient
+const MongoClient = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId
 const task_col_name = "tasks"
 const ids_col_name = "ids"
@@ -10,12 +10,16 @@ if (process.env.NODE_ENV != "production") {
     require('dotenv').config()
 }
 
+
+const mongo_option = {
+    useUnifiedTopology: true
+}
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@ntaro-uohel.mongodb.net/${db_name}?retryWrites=true&w=majority`
 
 /*
  * MogoDB validation and setup.
  */
-MongoClient.connect(uri, (err, db) => {
+MongoClient.connect(uri, mongo_option, (err, db) => {
 
     const promises = [
         new Promise(resolve => {
@@ -63,7 +67,7 @@ MongoClient.connect(uri, (err, db) => {
 
 export function addRecord(obj) {
     return new Promise(resolve => {
-        MongoClient.connect(uri, (err, db) => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
             const dbo = db.db(db_name);
             const tasks = dbo.collection(task_col_name);
             tasks.insertOne(obj)
@@ -76,7 +80,7 @@ export function addRecord(obj) {
 
 export async function getRecords() {
     return new Promise(resolve => {
-        MongoClient.connect(uri, (err, db) => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
             db.db("test").collection(task_col_name).find({}).toArray((err, arr) => {
                 if (err) throw err;
                 resolve(arr);
@@ -88,7 +92,7 @@ export async function getRecords() {
 
 export function deleteRecord(id) {
     return new Promise(resolve => {
-        MongoClient.connect(uri, (err, db) => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
             db.db("test").collection(task_col_name).deleteOne({ _id: ObjectId(id) }, function(err, obj) {
                 console.log("deleted:" + id)
                 resolve();
@@ -101,7 +105,7 @@ export function deleteRecord(id) {
 
 export function addUid(uid) {
     return new Promise(resolve => {
-        MongoClient.connect(uri, (err, db) => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
             const dbo = db.db(db_name);
             const uids = dbo.collection(ids_col_name);
             uids.insertOne({ "id": uid })
@@ -114,7 +118,7 @@ export function addUid(uid) {
 
 export function isRegisterd(uid) {
     return new Promise(resolve => {
-        MongoClient.connect(uri, (err, db) => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
             db.db("test").collection(ids_col_name).find({ "id": uid }).toArray((err, arr) => {
                 if (err) throw err;
                 const res = (arr.length > 0) ? true : false
@@ -131,10 +135,44 @@ export function registerId(uid) {
 
             if (res) {
                 resolve();
+                return 0;
             } else {
                 addUid(uid).then(() => {
                     resolve();
+                    return 0;
                 })
+            }
+        })
+    })
+}
+
+export function deleteUid(uid) {
+    return new Promise(resolve => {
+        MongoClient.connect(uri, mongo_option, (err, db) => {
+            db.db("test").collection(ids_col_name).deleteOne({ "id": uid }, function(err, obj) {
+                resolve();
+                return 0;
+            })
+        })
+    })
+}
+
+export function removeId(uid) {
+    console.log("S");
+    return new Promise(resolve => {
+        console.log("O");
+        isRegisterd(uid).then((res) => {
+            console.log(`registerd:${res}`);
+            if (res) {
+                deleteUid(uid).then(() => {
+                    console.log(`P`);
+                    resolve();
+                    return 0;
+                })
+            } else {
+                console.log(`Q`);
+                resolve();
+                return 0;
             }
         })
     })
