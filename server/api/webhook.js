@@ -1,6 +1,15 @@
-import line from "@line/bot-sdk";
+const line = require("@line/bot-sdk");
 
-const client = new line.Client(config);
+if (process.env.NODE_ENV != "production") {
+    require('dotenv').config()
+}
+
+export const line_config = {
+    channelAccessToken: process.env.LINE_ACCESS_TOKEN,
+    channelSecret: process.env.LINE_SECRET_KEY
+};
+
+const client = new line.Client(line_config);
 
 async function bot_body(ev) {
     const pro = await client.getProfile(ev.source.userId);
@@ -10,8 +19,7 @@ async function bot_body(ev) {
     })
 }
 
-
-export default function(req, res) {
+export function lineBot(req, res) {
     res.status(200).end();
     const events = req.body.events;
     const promises = [];
