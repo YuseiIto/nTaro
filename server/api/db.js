@@ -28,11 +28,13 @@ MongoClient.connect(uri, mongo_option, (err, db) => {
                 if (arr.findIndex(({ name }) => name === task_col_name) > -1) {
                     console.log(`Collection "${task_col_name}" exists!`)
                     resolve();
+                    return 0;
                 } else {
                     console.log(`Collection "${task_col_name}" doesn't exists!`)
                     dbo.createCollection(task_col_name).then(() => {
                         console.log("Collection created")
                         resolve();
+                        return 0;
                     })
                 }
             });
@@ -44,11 +46,13 @@ MongoClient.connect(uri, mongo_option, (err, db) => {
                 if (arr.findIndex(({ name }) => name === ids_col_name) > -1) {
                     console.log(`Collection "${ids_col_name}" exists!`)
                     resolve();
+                    return 0;
                 } else {
                     console.log(`Collection "${ids_col_name}" doesn't exists!`)
                     dbo.createCollection(ids_col_name).then(() => {
                         console.log("Collection created")
                         resolve();
+                        return 0;
                     })
                 }
 
@@ -108,10 +112,10 @@ export function addUid(uid) {
         MongoClient.connect(uri, mongo_option, (err, db) => {
             const dbo = db.db(db_name);
             const uids = dbo.collection(ids_col_name);
-            uids.insertOne({ "id": uid })
-            db.close();
-            resolve();
-            return;
+            uids.insertOne({ "id": uid }).then(() => {
+                db.close();
+                resolve();
+            })
         })
     });
 }
@@ -135,11 +139,9 @@ export function registerId(uid) {
 
             if (res) {
                 resolve();
-                return 0;
             } else {
                 addUid(uid).then(() => {
                     resolve();
-                    return 0;
                 })
             }
         })
@@ -151,28 +153,21 @@ export function deleteUid(uid) {
         MongoClient.connect(uri, mongo_option, (err, db) => {
             db.db("test").collection(ids_col_name).deleteOne({ "id": uid }, function(err, obj) {
                 resolve();
-                return 0;
             })
         })
     })
 }
 
 export function removeId(uid) {
-    console.log("S");
     return new Promise(resolve => {
-        console.log("O");
         isRegisterd(uid).then((res) => {
             console.log(`registerd:${res}`);
             if (res) {
                 deleteUid(uid).then(() => {
-                    console.log(`P`);
                     resolve();
-                    return 0;
                 })
             } else {
-                console.log(`Q`);
                 resolve();
-                return 0;
             }
         })
     })
