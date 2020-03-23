@@ -77,7 +77,7 @@ export function addRecord(obj) {
 export async function getRecords() {
     return new Promise(resolve => {
         MongoClient.connect(uri, (err, db) => {
-            db.db("test").collection("tasks").find({}).toArray((err, arr) => {
+            db.db("test").collection(task_col_name).find({}).toArray((err, arr) => {
                 if (err) throw err;
                 resolve(arr);
                 return arr;
@@ -89,7 +89,7 @@ export async function getRecords() {
 export function deleteRecord(id) {
     return new Promise(resolve => {
         MongoClient.connect(uri, (err, db) => {
-            db.db("test").collection("tasks").deleteOne({ _id: ObjectId(id) }, function(err, obj) {
+            db.db("test").collection(task_col_name).deleteOne({ _id: ObjectId(id) }, function(err, obj) {
                 console.log("deleted:" + id)
                 resolve();
                 return;
@@ -103,8 +103,8 @@ export function addUid(uid) {
     return new Promise(resolve => {
         MongoClient.connect(uri, (err, db) => {
             const dbo = db.db(db_name);
-            const tasks = dbo.collection(task_col_name);
-            tasks.insertOne({ "id": uid })
+            const uids = dbo.collection(ids_col_name);
+            uids.insertOne({ "id": uid })
             db.close();
             resolve();
             return;
@@ -115,12 +115,27 @@ export function addUid(uid) {
 export function isRegisterd(uid) {
     return new Promise(resolve => {
         MongoClient.connect(uri, (err, db) => {
-            db.db("test").collection("tasks").find({ "id": uid }).toArray((err, arr) => {
+            db.db("test").collection(ids_col_name).find({ "id": uid }).toArray((err, arr) => {
                 if (err) throw err;
                 const res = (arr.length > 0) ? true : false
                 resolve(res);
                 return arr;
             });
+        })
+    })
+}
+
+export function registerId(uid) {
+    return new Promise(resolve => {
+        isRegisterd(uid).then((res) => {
+
+            if (res) {
+                resolve();
+            } else {
+                addUid(uid).then(() => {
+                    resolve();
+                })
+            }
         })
     })
 }
