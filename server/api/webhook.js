@@ -1,5 +1,6 @@
 'use strict';
 const line = require("@line/bot-sdk");
+const BOT_JOIN_MESSAGE = "join!";
 
 if (process.env.NODE_ENV != "production") {
     require('dotenv').config()
@@ -20,6 +21,14 @@ async function bot_body(ev) {
             type: "text",
             text: `"${ev.message.text}"`
         })
+    } else if (ev.type === "join" || "follow") {
+
+        return client.replyMessage(ev.replyToken, {
+            type: "text",
+            text: BOT_JOIN_MESSAGE
+        })
+    } else {
+        return null;
     }
 }
 
