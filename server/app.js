@@ -4,6 +4,8 @@ import { Nuxt, Builder } from "nuxt"
 import config from "../nuxt.config.js"
 import bodyParser from "body-parser"
 import api from "./api"
+const cron = require('node-cron');
+import cronjob from "./cron"
 
 const app = express()
 
@@ -23,4 +25,6 @@ app.use(bodyParser.json());
 app.use(api)
 app.use(nuxt.render)
 
+cron.schedule('0 0 6,7,8,12,16,17,18,19,20,21,22,23 * * *', () => { cronjob() });
+//cron.schedule('*/10 * * * * *', () => { cronjob() });
 export default app
