@@ -12,11 +12,14 @@ export const line_config = {
 const client = new line.Client(line_config);
 
 async function bot_body(ev) {
-    const pro = await client.getProfile(ev.source.userId);
-    return client.replyMessage(ev.replyToken, {
-        type: "text",
-        text: `${pro.displayName} said"${ev.message.text}".`
-    })
+    console.log(`${JSON.stringify(ev)}`)
+
+    if (ev.type === "message") {
+        return client.replyMessage(ev.replyToken, {
+            type: "text",
+            text: `"${ev.message.text}"`
+        })
+    }
 }
 
 export function lineBot(req, res) {
