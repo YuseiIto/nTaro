@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@line/bot-sdk": "^6.8.4",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "backpack-core": "^0.8.4",
         "body-parser": "^1.19.0",
         "bulma": "^0.8.0",
